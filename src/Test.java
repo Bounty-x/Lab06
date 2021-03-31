@@ -5,8 +5,12 @@ public class Test {
     SortedList<String> list;
     Random r = new Random();
 
-    public Test(){
-        list = new SortedArrayList<String>();
+    public Test(int i){
+        if( i == 1)
+            list = new SortedArrayList<String>();
+        else if (i == 0){
+            list = new SortedLinkedList<String>();
+        }
     }
 
     void testRemove(int pos){
@@ -14,7 +18,7 @@ public class Test {
         temp.add("A");
         temp.add("B");
         temp.add("C");
-        System.out.println("Before remove()" + temp.toString());
+        System.out.println("Before remove("+ pos +")" + temp.toString());
 
         try {
             System.out.println("Remove returns: " + temp.remove(pos));
@@ -24,7 +28,7 @@ public class Test {
     }
 
     void testPositions(){
-        System.out.println("Testing bad positions");
+        System.out.println("Testing bad positions get(99) & remove(99)");
         try {
             list.get(99);
         }catch(Exception e){
@@ -52,7 +56,9 @@ public class Test {
     void testEmpty(){
         if(list.size() != 0)
             System.out.println("Size is not 0 at initialization");
-        else
+        try{System.out.println("testing get error handling... get(99)");
+            list.get(99);
+        }catch(Exception e){System.out.println("Error passed");}
             System.out.println("Empty test passed...");
 
     }
@@ -63,6 +69,7 @@ public class Test {
         for(int i = 0; i<n; i++){
             String item = l[r.nextInt(7)];
             list.add(item);
+            System.out.println("SIZE: " + list.size());
         }
         System.out.println("Testing get...");
         for(int j = 0; j<list.size(); j++){
@@ -81,18 +88,35 @@ public class Test {
     public static void main(String[] args){
 
         SortedList<String> intArrayList = new SortedArrayList<>();
-        Test t = new Test();
+        SortedList<String> ll = new SortedLinkedList<>();
+        //Using 1 for constructor creates SORTEDARRAYLIST
+        //Using 0 for constructor creates SORTEDLINKEDLIST
+        Test arrayList = new Test(1);
+        Test linkedList = new Test(0);
 
 
-        t.testEmpty();
+        linkedList.testEmpty();
         System.out.println();
-        t.testAdd(6);
+        linkedList.testAdd(6);
         System.out.println();
-        t.testOrder();
+        linkedList.testOrder();
         System.out.println();
-        t.testPositions();
+        linkedList.testPositions();
         System.out.println();
-        t.testRemove(2);
+        linkedList.testRemove(0);
+
+        //COMMENT OUT DIFFERENT TESTS
+        System.out.println("++++++++++++++++++++ ARRAYLIST TESTS ++++++++++++++++++++");
+
+        arrayList.testEmpty();
+        System.out.println();
+        arrayList.testAdd(6);
+        System.out.println();
+        arrayList.testOrder();
+        System.out.println();
+        arrayList.testPositions();
+        System.out.println();
+        arrayList.testRemove(0);
 //
 //        System.out.println(intArrayList.toString());
 //        intArrayList.add("C");
@@ -108,6 +132,35 @@ public class Test {
 //        }catch(Exception e){}
 //        System.out.println(intArrayList.toString());
 //
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        ll.add("B");
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        ll.add("A");
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        ll.add("C");
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        ll.add("F");
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        ll.add("E");
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        ll.add("D");
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        try{ll.remove(0);}catch(Exception e){}
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//        try{ll.remove(4);}catch(Exception e){}
+//        System.out.println(ll.toString());
+//        System.out.println("Size: " + ll.size());
+//
+//        try{System.out.println("GET(3): " + ll.get(3));}catch(Exception e){}
+
     }
 
 }
